@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário de Transtorno de Personalidade</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            margin: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .header a {
+            text-decoration: none;
+            color: #00aced;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .bold-uppercase {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .new-section {
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            background-color: #ffffff;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            button {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Questionário de Transtorno de Personalidade</h2>
+            <a href="https://www.tiktok.com/@vidacomborderline?_t=8nT91PCqCbV&_r=1" target="_blank">Tiktok Vida com Borderline</a>
+        </div>
+        <div id="root">
+            <!-- Content will be injected by JavaScript -->
+        </div>
+    </div>
+    <div class="footer">
+        <p id="visit-counter">Visitas: 0</p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let visitCount = localStorage.getItem('visitCount');
+            if (!visitCount) {
+                visitCount = 0;
+            } else {
+                visitCount = parseInt(visitCount);
+            }
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount);
+            document.getElementById('visit-counter').innerText = 'Visitas: ' + visitCount;
+
+            const questions = [
+                // Page 1
+                [
+                    // Cluster A - Paranoide
+                    "1. Você frequentemente suspeita que os outros estão tentando te prejudicar?",
+                    "2. Você acha difícil confiar nas pessoas?",
+                    "3. Você frequentemente lê significados ocultos em comentários benignos?",
+                    "4. Você guarda rancores por um longo tempo?",
+                    "5. Você frequentemente sente que as pessoas estão te enganando?",
+                    "6. Você reluta em confiar nos outros devido a medo de que as informações sejam usadas contra você?",
+                    "7. Você frequentemente suspeita da fidelidade do seu parceiro(a)?",
+                    "8. Você se sente ameaçado por situações inofensivas?",
+                    "9. Você frequentemente sente que as pessoas estão falando mal de você?",
+                    "10. Você evita compartilhar informações pessoais por medo de que possam ser usadas contra você?",
+                    // Cluster A - Esquizoide
+                    "11. Você prefere atividades solitárias?",
+                    "12. Você tem pouco interesse em relacionamentos sexuais?",
+                    "13. Você raramente sente fortes emoções?",
+                    "14. Você frequentemente se sente indiferente ao elogio ou crítica?",
+                    "15. Você tem poucas ou nenhuma amizade próxima?",
+                    "16. Você se sente desconectado das normas sociais?",
+                    "17. Você se sente indiferente à maioria das atividades sociais?",
+                    "18. Você raramente sente prazer em atividades?",
+                    "19. Você tem dificuldade em expressar emoções aos outros?",
+                    "20. Você prefere viver uma vida interior rica a se envolver com o mundo exterior?",
+                    // Cluster A - Esquizotípico
+                    "21. Você tem crenças estranhas ou pensamentos mágicos?",
+                    "22. Você frequentemente tem experiências perceptuais incomuns?",
+                    "23. Você acha difícil manter relacionamentos?",
+                    "24. Você frequentemente tem pensamentos e fala estranhos?",
+                    "25. Você tem comportamentos excêntricos?",
+                    "26. Você sente desconforto intenso em situações sociais?",
+                    "27. Você frequentemente sente que eventos comuns têm significados especiais?",
+                    "28. Você frequentemente se sente desconfortável em situações sociais devido à ansiedade?",
+                    "29. Você tem um estilo de vestir ou aparência incomum?",
+                    "30. Você frequentemente tem ideias de referência (acredita que eventos estão relacionados a você)?",
+                    "31. Você tem uma resposta emocional inadequada em algumas situações?",
+                    "32. Você tem medo de intimidade emocional ou física com outras pessoas?",
+                    "33. Você frequentemente se sente socialmente isolado?",
+                    "34. Você tem dificuldades em entender e interpretar sinais sociais?",
+                    "35. Você tem padrões de pensamento e discurso estranhos ou peculiares?",
+                    // Cluster B - Antissocial
+                    "36. Você frequentemente desrespeita a lei?",
+                    "37. Você mente ou engana outras pessoas para seu próprio benefício?",
+                    "38. Você age impulsivamente sem considerar as consequências?",
+                    "39. Você frequentemente sente pouca ou nenhuma culpa pelo seu comportamento?",
+                    "40. Você tem um histórico de problemas de comportamento desde a infância?"
+                ],
+                // Page 2
+                [
+                    // Cluster B - Antissocial (cont.)
+                    "41. Você frequentemente se envolve em brigas ou agressões físicas?",
+                    "42. Você tem um histórico de irresponsabilidade financeira?",
+                    "43. Você frequentemente não consegue cumprir obrigações com trabalho ou estudo?",
+                    "44. Você tem dificuldades em manter relacionamentos estáveis?",
+                    "45. Você frequentemente ignora a segurança sua e dos outros?",
+                    "46. Você frequentemente sente uma necessidade de excitação constante?",
+                    "47. Você tem um charme superficial que usa para manipular os outros?",
+                    "48. Você sente falta de empatia pelos outros?",
+                    "49. Você frequentemente sente raiva ou irritação excessiva?",
+                    "50. Você tem um histórico de violação das normas sociais?",
+                    // Cluster B - Borderline
+                    "51. Você tem mudanças de humor intensas?",
+                    "52. Você tem medo intenso de ser abandonado(a)?",
+                    "53. Você se envolve em comportamentos autodestrutivos?",
+                    "54. Você frequentemente se sente vazio(a) por dentro?",
+                    "55. Você tem dificuldade em controlar a raiva?",
+                    "56. Você frequentemente tem relacionamentos intensos e instáveis?",
+                    "57. Você frequentemente muda de opinião sobre quem você é?",
+                    "58. Você sente uma intensa angústia emocional?",
+                    "59. Você tem impulsos de gastar dinheiro, sexo, abuso de substâncias ou comer compulsivamente?",
+                    "60. Você já tentou ou pensou em suicídio?",
+                    "61. Você frequentemente se sente paranoico(a) ou fora de si sob estresse?",
+                    "62. Você sente uma instabilidade crônica de humor?",
+                    "63. Você sente que sua autoimagem é instável?",
+                    "64. Você frequentemente tem comportamentos de automutilação?",
+                    "65. Você tem dificuldade em manter um trabalho estável?",
+                    // Cluster B - Histriônico
+                    "66. Você se sente desconfortável quando não é o centro das atenções?",
+                    "67. Você expressa emoções de maneira exagerada?",
+                    "68. Você frequentemente usa a aparência física para atrair atenção?",
+                    "69. Você frequentemente fala de maneira impressionista sem muitos detalhes?",
+                    "70. Você é facilmente influenciado pelos outros?",
+                    "71. Você frequentemente considera relacionamentos mais íntimos do que realmente são?",
+                    "72. Você tem um estilo de discurso excessivamente dramático?",
+                    "73. Você gosta de ser o foco de atenções sociais?",
+                    "74. Você frequentemente exibe comportamentos sedutores?",
+                    "75. Você muda suas emoções rapidamente?"
+                ],
+                // Page 3
+                [
+                    // Cluster B - Histriônico (cont.)
+                    "76. Você frequentemente busca aprovação ou elogio dos outros?",
+                    "77. Você gosta de situações em que você é o centro das atenções?",
+                    "78. Você frequentemente sente que precisa ser admirado?",
+                    "79. Você frequentemente se sente deprimido(a) quando não está no centro das atenções?",
+                    "80. Você faz coisas dramáticas para chamar a atenção dos outros?",
+                    // Cluster B - Narcisista
+                    "81. Você tem um senso grandioso de autoimportância?",
+                    "82. Você precisa de muita admiração dos outros?",
+                    "83. Você sente que tem direito a um tratamento especial?",
+                    "84. Você frequentemente explora os outros para seu próprio benefício?",
+                    "85. Você sente inveja dos outros ou acredita que os outros sentem inveja de você?",
+                    "86. Você frequentemente sente que é único(a) e especial?",
+                    "87. Você frequentemente fantasias sobre sucesso ilimitado, poder ou beleza?",
+                    "88. Você tem dificuldade em reconhecer os sentimentos e necessidades dos outros?",
+                    "89. Você frequentemente acredita que os outros devem fazer o que você quer?",
+                    "90. Você tem uma necessidade excessiva de ser admirado(a)?",
+                    "91. Você frequentemente sente que é superior aos outros?",
+                    "92. Você frequentemente se sente arrogante?",
+                    "93. Você frequentemente sente que suas realizações são melhores do que as dos outros?",
+                    "94. Você tem um senso de grandiosidade em relação ao seu próprio valor?",
+                    "95. Você frequentemente se sente menosprezado(a) ou desvalorizado(a) pelos outros?",
+                    // Cluster C - Evitativo
+                    "96. Você evita atividades que envolvem contato interpessoal?",
+                    "97. Você tem medo de ser criticado ou rejeitado?",
+                    "98. Você se sente socialmente inadequado?",
+                    "99. Você evita interações sociais por medo de ser ridicularizado(a)?",
+                    "100. Você se sente inferior às outras pessoas?",
+                    "101. Você tem dificuldade em se envolver socialmente?",
+                    "102. Você tem medo de se envergonhar em situações sociais?",
+                    "103. Você evita fazer novas amizades por medo de rejeição?",
+                    "104. Você sente ansiedade extrema em situações sociais?",
+                    "105. Você frequentemente sente que não é bom(a) o suficiente?"
+                ],
+                // Page 4
+                [
+                    // Cluster C - Evitativo (cont.)
+                    "106. Você tem dificuldade em iniciar relacionamentos?",
+                    "107. Você se sente desconfortável em situações sociais?",
+                    "108. Você evita responsabilidades por medo de fracassar?",
+                    "109. Você se sente excessivamente preocupado(a) com a possibilidade de ser rejeitado(a)?",
+                    "110. Você evita atividades que possam levar a críticas?",
+                    // Cluster C - Dependente
+                    "111. Você tem dificuldade em tomar decisões sem a ajuda dos outros?",
+                    "112. Você precisa que os outros assumam a responsabilidade por áreas importantes da sua vida?",
+                    "113. Você se sente desconfortável ou desamparado(a) quando está sozinho(a)?",
+                    "114. Você tem dificuldade em expressar discordância por medo de perder o apoio ou aprovação?",
+                    "115. Você faz esforços excessivos para obter cuidado e apoio dos outros?",
+                    "116. Você se sente desamparado(a) quando um relacionamento íntimo termina?",
+                    "117. Você se sente excessivamente preocupado(a) com medo de ser abandonado(a)?",
+                    "118. Você frequentemente subordina suas necessidades às dos outros para evitar conflitos?",
+                    "119. Você frequentemente se sente inseguro(a) sobre suas habilidades?",
+                    "120. Você evita assumir responsabilidades porque acredita que não pode lidar com elas?",
+                    "121. Você tem medo de ser deixado(a) sozinho(a) para cuidar de si mesmo(a)?",
+                    "122. Você frequentemente busca garantias dos outros sobre decisões que você toma?",
+                    "123. Você sente que é incapaz de cuidar de si mesmo(a) sem ajuda dos outros?",
+                    "124. Você tem dificuldade em iniciar projetos ou fazer coisas por conta própria?",
+                    "125. Você depende de outras pessoas para tomar decisões importantes em sua vida?",
+                    // Cluster C - Obsessivo-Compulsivo
+                    "126. Você é preocupado(a) com ordem, perfeição e controle?",
+                    "127. Você tem dificuldade em delegar tarefas a outros?",
+                    "128. Você é rígido(a) e teimoso(a)?",
+                    "129. Você sente a necessidade de que tudo esteja exatamente no lugar certo?",
+                    "130. Você frequentemente se preocupa com detalhes, regras e listas?",
+                    "131. Você tem dificuldade em descartar objetos mesmo quando não têm valor?",
+                    "132. Você sente que há uma maneira correta de fazer as coisas e deve ser seguida à risca?",
+                    "133. Você frequentemente perde tempo organizando ou revisando as coisas?",
+                    "134. Você é excessivamente consciente e escrupuloso(a)?",
+                    "135. Você tem um padrão de perfeccionismo que interfere com a conclusão das tarefas?",
+                    "136. Você frequentemente sente necessidade de controlar as situações?",
+                    "137. Você se sente desconfortável quando as coisas não estão organizadas do jeito que você gosta?",
+                    "138. Você frequentemente acha difícil relaxar por se preocupar com o trabalho?",
+                    "139. Você frequentemente coloca a necessidade de ordem e perfeição acima das necessidades pessoais?",
+                    "140. Você frequentemente sente a necessidade de revisar tarefas repetidamente até que estejam perfeitas?",
+                    // Comorbidades
+                    "141. Você frequentemente se sente triste ou sem esperança?",
+                    "142. Você perdeu interesse nas atividades que costumava gostar?",
+                    "143. Você tem dificuldades para dormir ou dorme demais?",
+                    "144. Você se sente cansado(a) ou sem energia frequentemente?",
+                    "145. Você tem dificuldade em se concentrar?",
+                    "146. Você tem pensamentos de morte ou suicídio?",
+                    "147. Você sente medo ou preocupação excessiva frequentemente?",
+                    "148. Você tem ataques de pânico?",
+                    "149. Você evita situações por medo de ter um ataque de pânico?",
+                    "150. Você sente uma necessidade de realizar certas ações repetidamente?",
+                    "151. Você tem pensamentos indesejados que não consegue controlar?",
+                    "152. Você sente uma necessidade de verificar as coisas várias vezes?",
+                    "153. Você tem rituais que precisa seguir para se sentir seguro(a)?",
+                    "154. Você tem flashbacks de eventos traumáticos?",
+                    "155. Você evita coisas que te lembram de eventos traumáticos?",
+                    "156. Você tem dificuldades em sentir emoções positivas?",
+                    "157. Você tem explosões de raiva sem motivo aparente?",
+                    "158. Você sente que as pessoas estão te vigiando ou seguindo?",
+                    "159. Você ouve vozes ou vê coisas que outras pessoas não veem?",
+                    "160. Você tem dificuldades em separar o que é real do que não é?",
+                    "161. Você tem altos e baixos extremos de humor?",
+                    "162. Você sente euforia ou irritabilidade por longos períodos?",
+                    "163. Você sente uma necessidade constante de fazer coisas arriscadas?",
+                    "164. Você sente uma necessidade de estar em constante movimento?",
+                    "165. Você tem dificuldades em manter um emprego estável?",
+                    "166. Você tem dificuldades em manter relacionamentos estáveis?",
+                    "167. Você sente uma necessidade constante de ser o centro das atenções?",
+                    "168. Você sente uma necessidade constante de ser elogiado(a)?",
+                    "169. Você se sente superior aos outros?",
+                    "170. Você tem dificuldades em sentir empatia pelos outros?",
+                    "171. Você sente que as regras não se aplicam a você?",
+                    "172. Você tem dificuldades em controlar seus impulsos?",
+                    "173. Você mente ou engana frequentemente?",
+                    "174. Você sente uma necessidade constante de competir e vencer?",
+                    "175. Você tem dificuldades em aceitar críticas?",
+                    "176. Você sente uma necessidade de agradar os outros constantemente?",
+                    "177. Você tem dificuldades em tomar decisões sozinho(a)?",
+                    "178. Você sente uma necessidade constante de ser cuidado(a) pelos outros?",
+                    "179. Você sente medo intenso de ficar sozinho(a)?",
+                    "180. Você tem dificuldades em expressar suas próprias opiniões?",
+                    "181. Você se submete às vontades dos outros para evitar conflitos?",
+                    "182. Você sente uma necessidade constante de ser perfeito(a)?",
+                    "183. Você tem dificuldades em relaxar e deixar as coisas irem?",
+                    "184. Você sente uma necessidade constante de controle?",
+                    "185. Você tem dificuldades em aceitar quando as coisas não saem como planejado?",
+                    "186. Você sente uma necessidade constante de revisar as coisas até que estejam perfeitas?",
+                    "187. Você tem dificuldades em confiar nos outros?",
+                    "188. Você tem dificuldades em se adaptar a novas situações?"
+                ]
+            ];
+
+            const explanations = {
+                clusterA: {
+                    paranoide: "Transtorno Paranoide de Personalidade: Caracterizado por desconfiança e suspeita generalizada dos outros.",
+                    esquizoide: "Transtorno Esquizóide de Personalidade: Caracterizado por distanciamento social e restrita expressão emocional.",
+                    esquizotipico: "Transtorno Esquizotípico de Personalidade: Caracterizado por desconforto agudo em relacionamentos íntimos, distorções cognitivas ou perceptivas, e comportamentos excêntricos."
+                },
+                clusterB: {
+                    antissocial: "Transtorno Antissocial de Personalidade: Caracterizado por desrespeito e violação dos direitos dos outros, falta de remorso, comportamento impulsivo e manipulativo.",
+                    borderline: "Transtorno Borderline de Personalidade: Caracterizado por instabilidade nos relacionamentos interpessoais, autoimagem e afetos, com impulsividade significativa.",
+                    histrionico: "Transtorno Histriônico de Personalidade: Caracterizado por comportamento excessivamente emocional e busca constante por atenção.",
+                    narcisista: "Transtorno Narcisista de Personalidade: Caracterizado por necessidade de admiração, falta de empatia e um senso grandioso de autoimportância."
+                },
+                clusterC: {
+                    evitativo: "Transtorno de Personalidade Evitativa: Caracterizado por inibição social, sentimentos de inadequação e hipersensibilidade à avaliação negativa.",
+                    dependente: "Transtorno de Personalidade Dependente: Caracterizado por necessidade excessiva de cuidado, levando a comportamentos submissos e medo de separação.",
+                    obsessivoCompulsivo: "Transtorno de Personalidade Obsessivo-Compulsiva: Caracterizado por preocupação com ordem, perfeccionismo e controle, à custa de flexibilidade, abertura e eficiência."
+                },
+                comorbidades: {
+                    depressao: "Depressão: Sentimentos persistentes de tristeza, perda de interesse em atividades e uma variedade de sintomas físicos e emocionais.",
+                    ansiedade: "Ansiedade: Preocupação excessiva, medo intenso e sintomas físicos associados, como aumento da frequência cardíaca e sudorese.",
+                    panico: "Transtorno do Pânico: Ataques súbitos e repetidos de medo intenso acompanhados por sintomas físicos.",
+                    fobia: "Fobia: Medo irracional e excessivo de um objeto ou situação específica.",
+                    TOC: "Transtorno Obsessivo-Cumpulsivo: Pensamentos obsessivos e comportamentos compulsivos repetitivos.",
+                    TEPT: "Transtorno de Estresse Pós-Traumático: Condição desencadeada por eventos traumáticos, causando flashbacks, ansiedade e outros sintomas.",
+                    bipolar: "Transtorno Bipolar: Alternância entre episódios de mania e depressão.",
+                    esquizofrenia: "Esquizofrenia: Transtorno mental grave caracterizado por distorções do pensamento, percepções, emoções, linguagem, senso de identidade e comportamento."
+                }
+            };
+
+            const root = document.getElementById('root');
+
+            function createElement(tag, className, innerHTML, parent) {
+                const element = document.createElement(tag);
+                if (className) element.className = className;
+                if (innerHTML) element.innerHTML = innerHTML;
+                if (parent) parent.appendChild(element);
+                return element;
+            }
+
+            function showEULA() {
+                root.innerHTML = '';
+                const container = createElement('div', 'container', '', root);
+                createElement('h1', 'bold-uppercase', 'Bem-vindo ao Questionário de Transtorno de Personalidade', container);
+                createElement('p', '', 'Este site não deve ser usado como substituto para a ajuda profissional de um psicólogo, neuropsicólogo ou psiquiatra.', container);
+                createElement('p', '', 'Transtornos de personalidade são condições sérias e não devem ser auto-induzidos ou tratados sem a orientação de um profissional de saúde.', container);
+                createElement('p', '', 'Nenhum dado fornecido será armazenado ou compartilhado. Este site respeita a privacidade dos usuários e está em conformidade com a LGPD.', container);
+                createElement('p', '', '<strong>Termos de Uso:</strong><br /> Este site é fornecido "como está" e sem garantias de qualquer tipo, expressas ou implícitas. O autor do site não se responsabiliza por qualquer dano ou perda decorrente do uso deste site. Ao continuar, você concorda em não considerar os resultados do questionário como diagnósticos definitivos e buscará orientação profissional para qualquer preocupação com sua saúde mental.', container);
+                const label = createElement('label', '', '', container);
+                const checkbox = createElement('input', '', '', label);
+                checkbox.type = 'checkbox';
+                checkbox.id = 'agree';
+                label.appendChild(document.createTextNode(' Eu concordo com os termos e desejo continuar.'));
+                createElement('br', '', '', container);
+                const button = createElement('button', '', 'Continuar', container);
+                button.addEventListener('click', () => {
+                    if (checkbox.checked) {
+                        showQuestionnaire();
+                    } else {
+                        alert('Você deve concordar com os termos para continuar.');
+                    }
+                });
+            }
+
+            function createClusterInfo(title, disorders, explanations, parent) {
+                const container = createElement('div', 'container', '', parent);
+                const button = createElement('button', '', title, container);
+                const ul = createElement('ul', 'hidden', '', container);
+                disorders.forEach(disorder => {
+                    const li = createElement('li', '', '', ul);
+                    createElement('strong', 'bold-uppercase', disorder, li);
+                    createElement('p', '', explanations[disorder], li);
+                });
+                button.addEventListener('click', () => {
+                    ul.classList.toggle('hidden');
+                });
+            }
+
+            function showQuestionnaire() {
+                root.innerHTML = '';
+                const container = createElement('div', 'container', '', root);
+                createElement('h1', 'bold-uppercase', 'Questionário de Transtorno de Personalidade', container);
+                createElement('p', '', 'Selecione um cluster para ver mais informações sobre os transtornos associados:', container);
+                createClusterInfo('Cluster A', Object.keys(explanations.clusterA), explanations.clusterA, container);
+                createClusterInfo('Cluster B', Object.keys(explanations.clusterB), explanations.clusterB, container);
+                createClusterInfo('Cluster C', Object.keys(explanations.clusterC), explanations.clusterC, container);
+                createClusterInfo('Comorbidades', Object.keys(explanations.comorbidades), explanations.comorbidades, container);
+                createElement('p', '', 'Como é feita a aferição do resultado do questionário: Cada resposta é avaliada com base na frequência e intensidade dos sintomas descritos. A pontuação final é calculada como uma média das respostas positivas.', container);
+                const button = createElement('button', '', 'Responder questionário', container);
+                button.addEventListener('click', () => showForm(0));
+            }
+
+            function showForm(pageIndex) {
+                const questionsForPage = questions[pageIndex];
+
+                root.innerHTML = '';
+                const container = createElement('div', 'container', '', root);
+                createElement('h1', 'bold-uppercase', `Questionário de Transtorno de Personalidade - Página ${pageIndex + 1}`, container);
+                const form = createElement('form', '', '', container);
+
+                questionsForPage.forEach((question, index) => {
+                    const div = createElement('div', '', '', form);
+                    createElement('p', '', `<strong>${question}</strong>`, div);
+                    ['Sim', 'Não', 'Mais ou menos'].forEach(answer => {
+                        const label = createElement('label', '', '', div);
+                        const input = createElement('input', '', '', label);
+                        input.type = 'radio';
+                        input.name = `question-${pageIndex}-${index}`;
+                        input.value = answer.toLowerCase();
+                        label.appendChild(document.createTextNode(` ${answer}`));
+                    });
+                });
+
+                const buttonContainer = createElement('div', 'new-section', '', form);
+
+                if (pageIndex > 0) {
+                    const backButton = createElement('button', '', 'Voltar', buttonContainer);
+                    backButton.type = 'button';
+                    backButton.addEventListener('click', () => showForm(pageIndex - 1));
+                }
+
+                if (pageIndex < questions.length - 1) {
+                    const nextButton = createElement('button', '', 'Avançar', buttonContainer);
+                    nextButton.type = 'button';
+                    nextButton.addEventListener('click', () => showForm(pageIndex + 1));
+                } else {
+                    const label = createElement('label', '', '', buttonContainer);
+                    const checkbox = createElement('input', '', '', label);
+                    checkbox.type = 'checkbox';
+                    checkbox.id = 'finished';
+                    label.appendChild(document.createTextNode(' Você terminou de responder o questionário?'));
+
+                    const submitButton = createElement('button', '', 'ENVIAR RESPOSTA', buttonContainer);
+                    submitButton.type = 'button';
+                    submitButton.addEventListener('click', submitForm);
+                }
+
+                container.appendChild(form);
+            }
+
+            function submitForm() {
+                const form = document.querySelector('form');
+                if (document.getElementById('finished').checked) {
+                    form.requestSubmit();
+                } else {
+                    alert('Por favor, confirme que você terminou de responder o questionário.');
+                }
+            }
+
+            function handleSubmit(event) {
+                event.preventDefault();
+                const form = event.target;
+                const formData = new FormData(form);
+                const answers = {};
+                for (let [name, value] of formData.entries()) {
+                    const [prefix, pageIndex, index] = name.split('-');
+                    if (!answers[pageIndex]) answers[pageIndex] = [];
+                    answers[pageIndex][index] = value;
+                }
+
+                const results = {
+                    clusterA: { paranoide: 0, esquizoide: 0, esquizotipico: 0 },
+                    clusterB: { antissocial: 0, borderline: 0, histrionico: 0, narcisista: 0 },
+                    clusterC: { evitativo: 0, dependente: 0, obsessivoCompulsivo: 0 }
+                };
+                const comorbidityResults = { comorbidades: 0 };
+
+                const totalQuestions = Object.keys(answers).reduce((acc, pageIndex) => acc + answers[pageIndex].length, 0);
+                const comorbidityStartIndex = 140; // Index where comorbidity questions start
+
+                let clusterAQuestions = 35;
+                let clusterBQuestions = 45;
+                let clusterCQuestions = 35;
+                let comorbidityQuestions = 48;
+
+                let positiveAnswers = 0;
+                let maybeAnswers = 0;
+
+                for (let pageIndex in answers) {
+                    for (let answerIndex in answers[pageIndex]) {
+                        const answer = answers[pageIndex][answerIndex];
+                        if (answer === 'sim') positiveAnswers++;
+                        if (answer === 'mais ou menos') maybeAnswers++;
+
+                        const questionNumber = parseInt(pageIndex) * 50 + parseInt(answerIndex) + 1;
+                        if (questionNumber <= 35) {
+                            if (answerIndex < 10) results.clusterA.paranoide += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 20) results.clusterA.esquizoide += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 35) results.clusterA.esquizotipico += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                        } else if (questionNumber <= 80) {
+                            if (answerIndex < 50) results.clusterB.antissocial += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 65) results.clusterB.borderline += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 80) results.clusterB.histrionico += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                        } else if (questionNumber <= 125) {
+                            if (answerIndex < 95) results.clusterB.histrionico += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 110) results.clusterB.narcisista += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 125) results.clusterC.evitativo += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                        } else if (questionNumber <= 140) {
+                            if (answerIndex < 140) results.clusterC.evitativo += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 125) results.clusterC.dependente += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                            else if (answerIndex < 140) results.clusterC.obsessivoCompulsivo += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                        } else {
+                            comorbidityResults.comorbidades += answer === 'sim' ? 1 : answer === 'mais ou menos' ? 0.5 : 0;
+                        }
+                    }
+                }
+
+                console.log('Results:', results);
+                console.log('Comorbidity Results:', comorbidityResults);
+
+                const percentageResults = {};
+                for (let cluster in results) {
+                    percentageResults[cluster] = {};
+                    for (let disorder in results[cluster]) {
+                        percentageResults[cluster][disorder] = (results[cluster][disorder] / eval(`${cluster}Questions`)) * 100;
+                    }
+                }
+
+                percentageResults.comorbidades = (comorbidityResults.comorbidades / comorbidityQuestions) * 100;
+
+                console.log('Percentage Results:', percentageResults);
+
+                const topDisorders = [];
+                for (let cluster in percentageResults) {
+                    for (let disorder in percentageResults[cluster]) {
+                        if (percentageResults[cluster][disorder] > 60) {
+                            topDisorders.push({ disorder, percentage: percentageResults[cluster][disorder] });
+                        }
+                    }
+                }
+
+                const possibleComorbidities = [];
+                if (percentageResults.comorbidades > 60) {
+                    possibleComorbidities.push({ comorbidade: 'Comorbidades', percentage: percentageResults.comorbidades });
+                }
+
+                const result = { topDisorders, possibleComorbidities };
+                showResult(result);
+            }
+
+            function showResult(result) {
+                root.innerHTML = '';
+                const container = createElement('div', 'container', '', root);
+                createElement('h2', 'bold-uppercase', 'Resultado', container);
+                if (result.topDisorders.length > 0) {
+                    createElement('h3', '', 'Possíveis Transtornos', container);
+                    const ul = createElement('ul', '', '', container);
+                    result.topDisorders.forEach(disorder => createElement('li', '', `${disorder.disorder} - ${disorder.percentage.toFixed(2)}%`, ul));
+                } else {
+                    createElement('p', '', 'Nenhum transtorno detectado.', container);
+                }
+                if (result.possibleComorbidities.length > 0) {
+                    createElement('h3', '', 'Possíveis Comorbidades', container);
+                    const ul = createElement('ul', '', '', container);
+                    result.possibleComorbidities.forEach(comorbidade => createElement('li', '', `${comorbidade.comorbidade} - ${comorbidade.percentage.toFixed(2)}%`, ul));
+                }
+            }
+
+            function adjustLayout() {
+                const width = window.innerWidth;
+                if (width <= 768) {
+                    document.querySelectorAll('.container').forEach(container => {
+                        container.style.padding = '10px';
+                        container.style.margin = '10px';
+                    });
+                    document.querySelectorAll('button').forEach(button => {
+                        button.style.padding = '10px';
+                    });
+                }
+            }
+
+            window.addEventListener('resize', adjustLayout);
+            adjustLayout();
+            showEULA();
+
+            // Add form submit listener
+            document.addEventListener('submit', function (event) {
+                if (event.target.tagName === 'FORM') {
+                    event.preventDefault();
+                    handleSubmit(event);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
